@@ -10,27 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Atualizado para a versão mais recente
 
       - name: Create dir for report
-        run: |
-          mkdir testArtifacts
-      
+        run: mkdir -p testArtifacts
+
       - name: Instalar Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4  # Atualizado para a versão mais recente
         with:
           node-version: '22.13'
-      
+
       - name: Install Newman
         run: |
-             npm install -g newman 
-             npm install -g newman-reporter-htmlextra
-      
+          npm install -g newman 
+          npm install -g newman-reporter-htmlextra
+
       - name: Run test
         run: newman run serverest.postman_collection.json -e ServeRest.postman_environment.json -r cli,htmlextra
 
-      - name: Report
-        uses: actions/upload-artifact@v3.1.2
+      - name: Upload Report
+        uses: actions/upload-artifact@v4  # Atualizado para a versão mais recente
         with:
           name: Report
           path: newman
